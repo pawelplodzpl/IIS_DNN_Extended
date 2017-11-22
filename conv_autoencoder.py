@@ -54,27 +54,8 @@ decoder = Model(encoded_input, deco)
 
 autoencoder.compile(optimizer='adadelta', loss='binary_crossentropy')
 
-# # Encoder architecture 2
-# x = Conv2D(32, (3, 3), activation='relu', padding='same')(input_img)
-# x = MaxPooling2D((2, 2), padding='same')(x)
-# x = Conv2D(32, (3, 3), activation='relu', padding='same')(x)
-# encoded = MaxPooling2D((2, 2), padding='same')(x)
-#
-# encoder = Model(input_img, encoded)
-#
-# # at this point the representation is (7, 7, 32)
-#
-# x = Conv2D(32, (3, 3), activation='relu', padding='same')(encoded)
-# x = UpSampling2D((2, 2))(x)
-# x = Conv2D(32, (3, 3), activation='relu', padding='same')(x)
-# x = UpSampling2D((2, 2))(x)
-# decoded = Conv2D(1, (3, 3), activation='sigmoid', padding='same')(x)
-#
-# autoencoder = Model(input_img, decoded)
-# autoencoder.compile(optimizer='adadelta', loss='binary_crossentropy')
-#
 
-num_epochs = 10
+num_epochs = 1
 checkpoints = ModelCheckpoint('tmp/checkpoint_autoencoder.h5', save_best_only=True)
 
 autoencoder.fit(x_train, x_train,
@@ -84,8 +65,6 @@ autoencoder.fit(x_train, x_train,
                 validation_data=(x_test, x_test),
                 callbacks=[TensorBoard(log_dir='tmp/autoencoder'), ModelCheckpoint('tmp/checkpoint_autoencoder.h5', save_best_only=True)])
 
-encoder.save("conv_encoder.h5")
-decoder.save("conv_decoder.h5")
 autoencoder.save("conv_autoenoder.h5")
 
 # generate only encoded representation of the images - for future use in other algorithms
