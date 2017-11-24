@@ -139,7 +139,7 @@ y_test = keras.utils.to_categorical(y_test, num_classes)
 # image2 = np.array(image)
 # image2  = image2 / 255
 
-image3 = scipy.misc.imread('test_images/3_4.png')
+image3 = scipy.misc.imread('test_images/9_4.png')
 image3 = image3 / 255
 
 
